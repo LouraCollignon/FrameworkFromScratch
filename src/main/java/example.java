@@ -33,7 +33,6 @@ public class example {
         System.out.println(resultText);
         //start again with next test
         driver.navigate().to(url);
-        driver.manage().window().maximize();
         WebElement startBerekening2 = driver.findElement(By.xpath("//div[@class='bld-form']"));
         Actions action2 = new Actions(driver);
         action2.moveToElement(startBerekening2);
@@ -60,5 +59,27 @@ public class example {
         WebElement results2 = driver.findElement(By.xpath("//div[@id='divResultTxt']/div/p"));
         String results2Text = results2.getText();
         System.out.println(results2Text);
+        //start again with a new test
+        driver.navigate().to(url);
+        WebElement startBerekening3 = driver.findElement(By.xpath("//div[@class='bld-form']"));
+        Actions action3 = new Actions(driver);
+        action3.moveToElement(startBerekening3);
+        action3.perform();
+        WebElement nlJa3 = driver.findElement(By.xpath("//label[@class='custom-control-label'][@for='V1-1_True']"));
+        nlJa3.click();
+        WebElement soortVoertuigdrpdwn3 = driver.findElement(By.xpath("//select[@id='V1-2']"));
+        Select soortVoertuig3 = new Select(soortVoertuigdrpdwn3);
+        soortVoertuig3.selectByVisibleText("Motor");
+        WebElement elecOfWaterNee2 = driver.findElement(By.xpath("//label[@class='custom-control-label'][@for='V1-16_False']"));
+        elecOfWaterNee2.click();
+        WebElement kiesProvincie2 = driver.findElement(By.xpath("//select[@id='V1-5']"));
+        Select provincie2 = new Select(kiesProvincie2);
+        provincie2.selectByVisibleText("Drenthe");
+        WebElement resultsBtn3 = driver.findElement(By.xpath("//button[@id='butResults']"));
+        resultsBtn3.click();
+        //validate results
+        WebElement results3 = driver.findElement(By.xpath("//div[@id='divResultTxt']/div/p"));
+        String results3Text = results3.getText();
+        System.out.println(results3Text);
     }
 }
