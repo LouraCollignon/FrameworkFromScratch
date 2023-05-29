@@ -1,32 +1,29 @@
 package Pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.JavascriptExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class HomePage {
     WebDriver driver;
-
-    By AutoBtn = By.xpath("//span[contains(text(), 'auto')]");
-    By AutoHeader = By.xpath("//header//h1");
-
     public HomePage(WebDriver driver){
         this.driver = driver;
+        PageFactory.initElements(driver,this);
     }
-    public void NavigateToWebsite(){
-        String url = "https://www.belastingdienst.nl/";
-        driver.navigate().to(url);
-        driver.manage().window().maximize();
-    }
-    public void NavigateToAuto(){
-        driver.findElement(AutoBtn).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-    }
+    @FindBy(xpath = "//span[contains(text(), 'auto')]")
+        WebElement AutoBtn;
 
-    public void ValidatePageHeader(){
-        String actualText = "Auto en woon-werkverkeer";
-        String headerText = driver.findElement(AutoHeader).getText();
-        actualText.equals(headerText);
+    public void ScrollIntoView(WebElement element) {
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+    public void NavigateToWegenbelastingBerekenen() {
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        ScrollIntoView(AutoBtn);
+        //why are you throwing an error when clicking?
+        AutoBtn.click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 }
