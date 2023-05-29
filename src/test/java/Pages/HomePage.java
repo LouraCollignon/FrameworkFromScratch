@@ -17,13 +17,18 @@ public class HomePage {
         WebElement AutoBtn;
 
     public void ScrollIntoView(WebElement element) {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true); window.scrollBy(0, -window.innerHeight / 4);", element);
+    }
+
+    public void JSClick (WebElement element){
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
     }
     public void NavigateToWegenbelastingBerekenen() {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         ScrollIntoView(AutoBtn);
         //why are you throwing an error when clicking?
-        AutoBtn.click();
+        //AutoBtn.click();
+        JSClick(AutoBtn);
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 }

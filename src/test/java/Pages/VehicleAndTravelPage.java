@@ -1,19 +1,23 @@
 package Pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.*;
 
 public class VehicleAndTravelPage {
-    @FindBy(className = "bld-knop-algemeen")
+    @FindBy(xpath = "//a[@class='bld-knop-algemeen']")
         WebElement GoToCalculateWegenbelasting;
-    @FindBy(xpath = "//header//h1" )
+    @FindBy(xpath = "//div[@id='bld-main-content']//h1" )
         WebElement AutoHeader;
     @FindBy(id = "butResults")
         WebElement CalculateBtn;
@@ -38,7 +42,17 @@ public class VehicleAndTravelPage {
 
     WebDriver driver;
 
+    public void WaitForElementToLoad(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void ScrollIntoView(WebElement element) {
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(false); window.scrollBy(0, -window.innerHeight / 4);", element);
+    }
     public void GoToCalculator(){
+        ScrollIntoView(GoToCalculateWegenbelasting);
+        WaitForElementToLoad(GoToCalculateWegenbelasting);
         GoToCalculateWegenbelasting.click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
@@ -48,6 +62,9 @@ public class VehicleAndTravelPage {
     }
 
     public void ValidatePageHeader(String headerText){
+        ScrollIntoView(AutoHeader);
+        WaitForElementToLoad(AutoHeader);
+        //driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         String currentText = AutoHeader.getText();
         assertThat(headerText).isEqualTo(currentText);
     }
