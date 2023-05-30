@@ -17,7 +17,11 @@ public class HomePage {
         WebElement AutoBtn;
 
     public void ScrollIntoView(WebElement element) {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true); window.scrollBy(0, -window.innerHeight / 4);", element);
+        /*Integer Y_movement = 200;
+        Integer elementLocation = element.getLocation().getY();
+        int moveYAxis = elementLocation-Y_movement;
+        String strLocation = String.format("arguments[0].scrollIntoView(true); window.scrollBy(0, %s;)", moveYAxis);*/
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(false);", element);
     }
 
     public void JSClick (WebElement element){

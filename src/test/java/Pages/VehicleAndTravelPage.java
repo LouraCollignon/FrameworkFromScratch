@@ -48,11 +48,11 @@ public class VehicleAndTravelPage {
     }
 
     public void ScrollIntoView(WebElement element) {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(false); window.scrollBy(0, -window.innerHeight / 4);", element);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true); window.scrollBy(0, -window.innerHeight / 4);", element);
     }
     public void GoToCalculator(){
-        ScrollIntoView(GoToCalculateWegenbelasting);
         WaitForElementToLoad(GoToCalculateWegenbelasting);
+        ScrollIntoView(GoToCalculateWegenbelasting);
         GoToCalculateWegenbelasting.click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
