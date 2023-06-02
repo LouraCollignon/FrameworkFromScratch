@@ -47,6 +47,7 @@ public class WegenBelastingSteps {
     public void iAmOnTheWegenbelastingCalculationPageAndSee(String headerText) {
         driver.navigate().to(BelastingdienstHomePage);
         HomePage.NavigateToWegenbelastingBerekenen();
+        Vehicle.GoToCalculator();
         Vehicle.ValidatePageHeader(headerText);
     }
 
